@@ -1,0 +1,202 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import LandingPage from "./pages/LandingPage";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import VerifyEmail from "./pages/VerifyEmail";
+
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import Transfer from "./pages/Transfer";
+import TransactionHistory from "./pages/TransactionHistory";
+import Deposit from "./pages/Deposit";
+import Withdraw from "./pages/Withdraw";
+import Settings from "./pages/Settings";
+
+import AdminLayout from "./layouts/AdminLayout";
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminAccounts from "./pages/admin/Accounts";
+import AdminAnalytics from "./pages/admin/Analytics";
+import AdminReports from "./pages/admin/Reports";
+import AdminSettings from "./pages/admin/Settings";
+import AdminTransactions from "./pages/admin/Transactions";
+import AdminUsers from "./pages/admin/Users";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
+import Logs from "./pages/admin/Logs";
+
+import NotFound from "./pages/NotFound";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route
+          path="/reset-password/:token"
+          element={<ResetPassword />}
+        />
+        <Route
+          path="/verify-email/:token"
+          element={<VerifyEmail />}
+        />
+
+        {/* User Dashboard */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ================= ADMIN ROUTES ================= */}
+
+         <Route
+  path="/admin"
+  element={
+    <AdminRoute>
+      <AdminLayout />
+    </AdminRoute>
+  }
+></Route>
+          <Route
+            path="/admin/login"
+            element={<AdminLogin />}
+          />
+
+          <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/users"
+            element={
+              <AdminRoute>
+                <AdminUsers />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/accounts"
+            element={
+              <AdminRoute>
+                <AdminAccounts />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/transactions"
+            element={
+              <AdminRoute>
+                <AdminTransactions />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/analytics"
+            element={
+              <AdminRoute>
+                <AdminAnalytics />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/reports"
+            element={
+              <AdminRoute>
+                <AdminReports />
+              </AdminRoute>
+            }
+          />
+          <Route path="/admin/logs" element={<Logs />} />
+          
+          <Route
+            path="/admin/settings"
+            element={
+              <AdminRoute>
+                <AdminSettings />
+              </AdminRoute>
+            }
+          />
+
+        {/* Protected Routes */}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/transfer"
+          element={
+            <ProtectedRoute>
+              <Transfer />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/transactions"
+          element={
+            <ProtectedRoute>
+              <TransactionHistory />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/deposit"
+          element={
+            <ProtectedRoute>
+              <Deposit />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/withdraw"
+          element={
+            <ProtectedRoute>
+              <Withdraw />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 404 */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
