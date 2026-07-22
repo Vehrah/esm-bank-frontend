@@ -59,83 +59,65 @@ function App() {
         />
 
         {/* ================= ADMIN ROUTES ================= */}
+          <Route
+                  path="/admin"
+                  element={
+                    <AdminRoute>
+                      <AdminLayout />
+                    </AdminRoute>
+                  }
+                >
+                  <Route
+                    index
+                    element={<AdminDashboard />}
+                  />
 
-         <Route
-  path="/admin"
-  element={
-    <AdminRoute>
-      <AdminLayout />
-    </AdminRoute>
-  }
-></Route>
-          <Route
-            path="/admin/login"
-            element={<AdminLogin />}
-          />
+                  <Route
+                    path="dashboard"
+                    element={<AdminDashboard />}
+                  />
 
-          <Route
-            path="/admin/dashboard"
-            element={
-              <AdminRoute>
-                <AdminDashboard />
-              </AdminRoute>
-            }
-          />
+                  <Route
+                    path="users"
+                    element={<AdminUsers />}
+           />
 
-          <Route
-            path="/admin/users"
-            element={
-              <AdminRoute>
-                <AdminUsers />
-              </AdminRoute>
-            }
-          />
+                  <Route
+                    path="accounts"
+                    element={<AdminAccounts />}
+                  />
 
-          <Route
-            path="/admin/accounts"
-            element={
-              <AdminRoute>
-                <AdminAccounts />
-              </AdminRoute>
-            }
-          />
+                  <Route
+                    path="transactions"
+                    element={<AdminTransactions />}
+                  />
 
-          <Route
-            path="/admin/transactions"
-            element={
-              <AdminRoute>
-                <AdminTransactions />
-              </AdminRoute>
-            }
-          />
+                  <Route
+                    path="analytics"
+                    element={<AdminAnalytics />}
+                  />
 
-          <Route
-            path="/admin/analytics"
-            element={
-              <AdminRoute>
-                <AdminAnalytics />
-              </AdminRoute>
-            }
-          />
+                  <Route
+                    path="reports"
+                    element={<AdminReports />}
+                  />
 
-          <Route
-            path="/admin/reports"
-            element={
-              <AdminRoute>
-                <AdminReports />
-              </AdminRoute>
-            }
-          />
-          <Route path="/admin/logs" element={<Logs />} />
-          
-          <Route
-            path="/admin/settings"
-            element={
-              <AdminRoute>
-                <AdminSettings />
-              </AdminRoute>
-            }
-          />
+                  <Route
+                    path="logs"
+                    element={<Logs />}
+                  />
+
+                  <Route
+                    path="settings"
+                    element={<AdminSettings />}
+                  />
+                </Route>
+
+                <Route
+                  path="/admin/login"
+                  element={<AdminLogin />}
+            />
+              
 
         {/* Protected Routes */}
         <Route
