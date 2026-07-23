@@ -71,7 +71,7 @@ export default function Logs() {
 
       {/* Summary Cards */}
 
-      <div className="mb-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
 
         <div className="rounded-2xl bg-white dark:bg-slate-900 p-6 shadow">
 
