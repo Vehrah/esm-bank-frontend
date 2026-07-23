@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import API from "../services/authService";
+import { useAuth } from "../context/AuthContext";
 
 function Deposit() {
   const navigate = useNavigate();
