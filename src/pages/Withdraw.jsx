@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import API from "../services/authService";
+import { useAuth } from "../context/AuthContext";
 
 function Withdraw() {
   const navigate = useNavigate();
-
+   const { user, setUser } = useAuth();
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -19,9 +20,14 @@ function Withdraw() {
         amount,
       });
 
-      toast.success(res.data.message);
+      setUser({
+          ...user,
+          balance: res.data.balance,
+        });
 
-      navigate("/dashboard");
+        toast.success(res.data.message);
+
+        navigate("/dashboard");
     } catch (err) {
       toast.error(
         err.response?.data?.message ||

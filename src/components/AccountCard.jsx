@@ -22,7 +22,7 @@ function AccountCard() {
       <div className="relative z-10">
 
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
           <div>
             <h2 className="rounded-3xl bg-white shadow-lg dark:bg-slate-900 text-slate-900 dark:text-white">
@@ -43,7 +43,7 @@ function AccountCard() {
         {/* Balance */}
         <div className="mt-12">
 
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
             <p className="uppercase tracking-widest text-slate-900 dark:text-white">
               Available Balance

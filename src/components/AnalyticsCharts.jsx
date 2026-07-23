@@ -190,23 +190,18 @@ const monthlyData = {
 
   return (
     <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
-      {/* Line Chart */}
-      <div className="rounded-xl bg-white p-6 shadow min-h-[420px]">
-        <h2 className="mb-6 text-xl font-bold">
+      <div className="min-h-[420px] rounded-[24px] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/20">
+        <h2 className="mb-6 text-xl font-semibold text-slate-900 dark:text-white">
           Last 7 Days Transaction Trend
         </h2>
 
         <div className="h-80">
-          <Line
-            data={lineData}
-            options={chartOptions}
-          />
+          <Line data={lineData} options={chartOptions} />
         </div>
       </div>
 
-      {/* Doughnut Chart */}
-      <div className="rounded-xl bg-white p-6 shadow min-h-[420px]">
-        <h2 className="mb-6 text-xl font-bold">
+      <div className="min-h-[420px] rounded-[24px] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/20">
+        <h2 className="mb-6 text-xl font-semibold text-slate-900 dark:text-white">
           Transaction Distribution (%)
         </h2>
 
@@ -220,12 +215,14 @@ const monthlyData = {
               plugins: {
                 legend: {
                   position: "bottom",
+                  labels: {
+                    color: "#94a3b8",
+                  },
                 },
 
                 tooltip: {
                   callbacks: {
-                    label: (context) =>
-                      `${context.label}: ${context.raw.toFixed(1)}%`,
+                    label: (context) => `${context.label}: ${context.raw.toFixed(1)}%`,
                   },
                 },
               },
@@ -233,18 +230,16 @@ const monthlyData = {
           />
         </div>
       </div>
-      <div className="rounded-xl bg-white p-6 shadow mt-8">
-  <h2 className="mb-6 text-xl font-bold">
-    Monthly Transaction Trend
-  </h2>
 
-  <div className="h-96">
-    <Line
-      data={monthlyData}
-      options={chartOptions}
-    />
-  </div>
-</div>
+      <div className="mt-2 rounded-[24px] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/20 xl:col-span-2">
+        <h2 className="mb-6 text-xl font-semibold text-slate-900 dark:text-white">
+          Monthly Transaction Trend
+        </h2>
+
+        <div className="h-96">
+          <Line data={monthlyData} options={chartOptions} />
+        </div>
+      </div>
     </div>
   );
 }

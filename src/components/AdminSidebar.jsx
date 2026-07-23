@@ -1,63 +1,168 @@
-import { FaChartPie, FaUsers, FaWallet, FaExchangeAlt, FaCog, FaHome, FaTimes } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import {
+  FaChartPie,
+  FaUsers,
+  FaWallet,
+  FaExchangeAlt,
+  FaChartLine,
+  FaFileAlt,
+  FaClipboardList,
+  FaCog,
+  FaSignOutAlt,
+  FaUniversity,
+  FaTimes,
+} from "react-icons/fa";
 
-// Sidebar navigation links for the admin dashboard.
 const navItems = [
-  { label: "Overview", icon: FaHome, href: "#overview" },
-  { label: "Users", icon: FaUsers, href: "#users" },
-  { label: "Accounts", icon: FaWallet, href: "#accounts" },
-  { label: "Transactions", icon: FaExchangeAlt, href: "#transactions" },
-  { label: "Settings", icon: FaCog, href: "#settings" },
+  {
+    label: "Dashboard",
+    icon: FaChartPie,
+    to: "/admin",
+  },
+  {
+    label: "Users",
+    icon: FaUsers,
+    to: "/admin/users",
+  },
+  {
+    label: "Accounts",
+    icon: FaWallet,
+    to: "/admin/accounts",
+  },
+  {
+    label: "Transactions",
+    icon: FaExchangeAlt,
+    to: "/admin/transactions",
+  },
+  {
+    label: "Analytics",
+    icon: FaChartLine,
+    to: "/admin/analytics",
+  },
+  {
+    label: "Reports",
+    icon: FaFileAlt,
+    to: "/admin/reports",
+  },
+  {
+    label: "Logs",
+    icon: FaClipboardList,
+    to: "/admin/logs",
+  },
+  {
+    label: "Settings",
+    icon: FaCog,
+    to: "/admin/settings",
+  },
 ];
 
 function AdminSidebar({ isOpen, onClose }) {
-  // Sidebar is hidden on small screens and toggled via the hamburger icon.
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-30 w-80 transform overflow-y-auto border-r border-slate-200 bg-white px-6 pb-10 pt-8 shadow-xl shadow-slate-900/5 transition duration-300 dark:border-slate-800 dark:bg-slate-950 lg:static lg:translate-x-0 lg:shadow-none ${
+      className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col bg-slate-950 transition-transform duration-300 lg:static lg:translate-x-0 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-100">
-            FinEdge Admin
-          </p>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            Modern banking control center
-          </p>
+      {/* Logo */}
+
+      <div className="flex items-center justify-between border-b border-slate-800 p-6">
+
+        <div className="flex items-center gap-3">
+
+          <div className="rounded-xl bg-yellow-400 p-3">
+
+            <FaUniversity className="text-xl text-slate-900" />
+
+          </div>
+
+          <div>
+
+            <h1 className="text-xl font-bold text-white">
+              ESM Bank
+            </h1>
+
+            <p className="text-sm text-slate-400">
+              Admin Panel
+            </p>
+
+          </div>
+
         </div>
+
         <button
-          type="button"
           onClick={onClose}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-400 dark:hover:text-white lg:hidden"
-          aria-label="Close sidebar"
+          className="rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white lg:hidden"
         >
-          <FaTimes className="h-4 w-4" />
+          <FaTimes />
         </button>
+
       </div>
 
-      <div className="mt-10 space-y-3">
+      {/* Navigation */}
+
+      <nav className="flex-1 space-y-2 p-5">
+
         {navItems.map((item) => {
           const Icon = item.icon;
+
           return (
-            <a
+            <NavLink
               key={item.label}
-              href={item.href}
-              className="flex items-center gap-3 rounded-3xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-white"
+              to={item.to}
+              end={item.to === "/admin"}
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-xl px-4 py-3 transition-all ${
+                  isActive
+                    ? "bg-yellow-400 font-semibold text-slate-900"
+                    : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                }`
+              }
             >
-              <Icon className="h-4 w-4" />
+              <Icon className="text-lg" />
+
               {item.label}
-            </a>
+            </NavLink>
           );
         })}
+
+      </nav>
+
+      {/* Admin Info */}
+
+      <div className="border-t border-slate-800 p-6">
+
+        <div className="mb-6 flex items-center gap-3">
+
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400 text-lg font-bold text-slate-900">
+
+            E
+
+          </div>
+
+          <div>
+
+            <h3 className="font-semibold text-white">
+              Esme Vera
+            </h3>
+
+            <p className="text-sm text-slate-400">
+              Super Admin
+            </p>
+
+          </div>
+
+        </div>
+
+        <button
+          className="flex w-full items-center justify-center gap-3 rounded-xl bg-red-600 py-3 font-semibold text-white transition hover:bg-red-700"
+        >
+          <FaSignOutAlt />
+
+          Logout
+        </button>
+
       </div>
 
-      <div className="mt-12 rounded-3xl bg-slate-100 p-5 text-slate-700 dark:bg-slate-900 dark:text-slate-300">
-        <p className="text-sm font-semibold">Admin Insights</p>
-        <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
-          Review users, transfers, and balances across the platform in one central space.
-        </p>
-      </div>
     </aside>
   );
 }

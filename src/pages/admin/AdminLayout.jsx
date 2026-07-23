@@ -1,99 +1,39 @@
-import { Outlet, Link } from "react-router-dom";
-import {
-  FaChartPie,
-  FaUsers,
-  FaWallet,
-  FaExchangeAlt,
-  FaChartLine,
-  FaFileAlt,
-  FaCog,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { Outlet } from "react-router-dom";
+import { useState } from "react";
+import { FaBars } from "react-icons/fa";
+
+import AdminSidebar from "../../components/AdminSidebar";
+import Topbar from "../../components/admin/Topbar";
 
 export default function AdminLayout() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="flex min-h-screen bg-slate-100">
+    <div className="flex h-screen overflow-hidden bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+      <AdminSidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
 
-      {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 text-white">
-
-        <div className="p-6 text-2xl font-bold border-b border-slate-700">
-          RiaBank Admin
-        </div>
-
-        <nav className="mt-6 space-y-2 px-4">
-
-          <Link
-            to="/admin/dashboard"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-slate-800"
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="flex items-center justify-between border-b border-slate-200 bg-white/90 px-4 py-4 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/90 lg:hidden">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="rounded-xl bg-slate-900 p-3 text-white transition hover:scale-105 dark:bg-slate-700"
           >
-            <FaChartPie />
-            Dashboard
-          </Link>
+            <FaBars />
+          </button>
 
-          <Link
-            to="/admin/users"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-slate-800"
-          >
-            <FaUsers />
-            Users
-          </Link>
+          <h1 className="text-lg font-semibold text-slate-900 dark:text-white">
+            ESM Bank
+          </h1>
+        </header>
 
-          <Link
-            to="/admin/accounts"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-slate-800"
-          >
-            <FaWallet />
-            Accounts
-          </Link>
+        <Topbar />
 
-          <Link
-            to="/admin/transactions"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-slate-800"
-          >
-            <FaExchangeAlt />
-            Transactions
-          </Link>
-
-          <Link
-            to="/admin/analytics"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-slate-800"
-          >
-            <FaChartLine />
-            Analytics
-          </Link>
-
-          <Link
-            to="/admin/reports"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-slate-800"
-          >
-            <FaFileAlt />
-            Reports
-          </Link>
-
-          <Link
-            to="/admin/settings"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-slate-800"
-          >
-            <FaCog />
-            Settings
-          </Link>
-
-        </nav>
-
-        <button className="absolute bottom-6 left-4 flex items-center gap-3 rounded-lg bg-red-600 px-4 py-3 hover:bg-red-700">
-          <FaSignOutAlt />
-          Logout
-        </button>
-
-      </aside>
-
-      {/* Main Content */}
-
-      <main className="flex-1 p-8">
-        <Outlet />
-      </main>
-
+        <main className="flex-1 overflow-y-auto overflow-x-auto bg-slate-50/70 dark:bg-slate-950/70">
+          <div className="mx-auto w-full max-w-7xl p-4 sm:p-6 lg:p-8">
+            <Outlet />
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

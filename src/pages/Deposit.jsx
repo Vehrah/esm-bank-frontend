@@ -5,6 +5,7 @@ import API from "../services/authService";
 
 function Deposit() {
   const navigate = useNavigate();
+  const { user, setUser } = useAuth();
 
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,9 +20,14 @@ function Deposit() {
         amount,
       });
 
-      toast.success(res.data.message);
+      setUser({
+          ...user,
+          balance: res.data.balance,
+        });
 
-      navigate("/dashboard");
+        toast.success(res.data.message);
+
+navigate("/dashboard");
     } catch (err) {
       toast.error(
         err.response?.data?.message ||

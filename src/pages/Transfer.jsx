@@ -91,7 +91,7 @@ navigate("/dashboard");
         }}
         className="mx-auto w-full max-w-lg rounded-3xl bg-white p-8 shadow-2xl dark:bg-slate-900"
       >
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-2xl font-bold sm:text-3xl">
           Transfer Money
         </h1>
 

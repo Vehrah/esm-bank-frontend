@@ -53,7 +53,7 @@ function Hero() {
 
           <div className="w-[380px] rounded-3xl border border-yellow-500/20 bg-white dark:bg-slate-900 p-8 shadow-2xl">
 
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <h2 className="text-slate-900 dark:text-white font-bold">
                 Esm Bank
               </h2>
