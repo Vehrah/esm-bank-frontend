@@ -13,7 +13,9 @@ function ForgotPassword() {
     try {
       setLoading(true);
 
-      const res = await forgotPassword(email);
+      const res = await forgotPassword({
+  email,
+});
 
       toast.success(res.data.message);
 

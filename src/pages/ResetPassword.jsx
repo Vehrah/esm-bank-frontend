@@ -27,7 +27,9 @@ function ResetPassword() {
     try {
       setLoading(true);
 
-      const res = await resetPassword(token, password);
+      const res = await resetPassword(token, {
+  password,
+});
 
       toast.success(res.data.message);
 
