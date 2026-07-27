@@ -12,32 +12,41 @@ function Deposit() {
   const [loading, setLoading] = useState(false);
 
   const handleDeposit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      setLoading(true);
+  const depositAmount = Number(amount);
 
-      const res = await API.post("/transaction/deposit", {
-        amount,
-      });
+  if (isNaN(depositAmount) || depositAmount <= 0) {
+    return toast.error("Enter a valid deposit amount.");
+  }
 
-      setUser({
-          ...user,
-          balance: res.data.balance,
-        });
+  if (depositAmount > 10000000) {
+    return toast.error("Maximum deposit is ₦10,000,000.");
+  }
 
-        toast.success(res.data.message);
+  try {
+    setLoading(true);
 
-navigate("/dashboard");
-    } catch (err) {
-      toast.error(
-        err.response?.data?.message ||
-          "Deposit failed"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+    const res = await API.post("/transaction/deposit", {
+      amount: depositAmount,
+    });
+
+    setUser({
+      ...user,
+      balance: res.data.balance,
+    });
+
+    toast.success(res.data.message);
+
+    navigate("/dashboard");
+  } catch (err) {
+    toast.error(
+      err.response?.data?.message || "Deposit failed"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
@@ -50,15 +59,22 @@ navigate("/dashboard");
           type="number"
           placeholder="Amount"
           value={amount}
-          onChange={(e) =>
-            setAmount(e.target.value)
-          }
+          min="1"
+          max="10000000"
+          step="1"
+          onChange={(e) => {
+            const value = e.target.value;
+
+            if (value === "" || Number(value) <= 10000000) {
+              setAmount(value);
+            }
+          }}
           className="mt-8 w-full rounded-xl bg-gray-100 dark:bg-slate-800 p-4 text-slate-900 dark:text-white"
           required
-        />
+       />
 
         <button
-          disabled={loading}
+          disabled={loading || !amount}
           className="mt-6 w-full rounded-xl bg-green-500 py-4 font-bold text-slate-900 dark:text-white"
         >
           {loading ? "Processing..." : "Deposit"}
