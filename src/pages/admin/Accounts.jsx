@@ -12,15 +12,7 @@ export default function Accounts() {
 
   const fetchUsers = async () => {
     try {
-      setLoading(true);
-
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get("/api/admin/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await API.get("/admin/accounts");
 
       setUsers(res.data);
     } catch (err) {

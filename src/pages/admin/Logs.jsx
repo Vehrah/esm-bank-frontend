@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/authService";
 import {
   FaSyncAlt,
   FaHistory,
@@ -16,15 +16,7 @@ export default function Logs() {
 
   const fetchLogs = async () => {
     try {
-      setLoading(true);
-
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get("/api/admin/logs", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await API.get("/admin/logs");
 
       setLogs(res.data);
     } catch (err) {
