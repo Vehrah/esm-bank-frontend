@@ -12,7 +12,7 @@ export default function Accounts() {
 
   const fetchUsers = async () => {
     try {
-      const res = await API.get("/admin/accounts");
+      const res = await; API.get("/admin/users");
 
       setUsers(res.data);
     } catch (err) {
