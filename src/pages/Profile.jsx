@@ -15,12 +15,17 @@ function Profile() {
   const handlePhotoChange = (e) => {
   const file = e.target.files[0];
 
-  console.log("Selected file:", file);
+  console.log("FILE:", file);
 
-  if (!file) return;
+  if (!file) {
+    toast.error("No file selected.");
+    return;
+  }
 
   setPhoto(file);
   setPreview(URL.createObjectURL(file));
+
+  toast.success(`Selected: ${file.name}`);
 };
 
   const uploadPhoto = async () => {
