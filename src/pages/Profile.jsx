@@ -89,6 +89,7 @@ function Profile() {
           />
 
           <button
+           type="button"
             onClick={uploadPhoto}
             disabled={uploading}
             className="mt-4 rounded-xl bg-yellow-500 px-6 py-3 font-semibold hover:bg-yellow-400"
@@ -133,7 +134,7 @@ function Profile() {
 
           <ProfileItem
             title="Balance"
-            value={`₦${user?.balance?.toLocaleString()}`}
+            value={`$${user?.balance?.toLocaleString()}`}
           />
 
           <ProfileItem

@@ -21,7 +21,7 @@ function Deposit() {
   }
 
   if (depositAmount > 10000000) {
-    return toast.error("Maximum deposit is ₦10,000,000.");
+    return toast.error("Maximum deposit is $10,000,000.");
   }
 
   try {
