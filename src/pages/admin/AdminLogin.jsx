@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
 
 export default function AdminLogin() {
@@ -29,10 +29,10 @@ export default function AdminLogin() {
     setError("");
 
     try {
-      const res = await axios.post(
-        "/api/auth/admin/login",
-        form
-      );
+        const res = await API.post(
+  "/auth/admin/login",
+  form
+);
 
       login(res.data.user, res.data.token);
 
