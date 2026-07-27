@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/authService";
 import { formatCurrency } from "../../utils/formatCurrency";
 import Topbar from "../../components/admin/Topbar";
 import StatCard from "../../components/admin/StatCard";
@@ -30,13 +30,7 @@ export default function Dashboard() {
     setError(null);
 
     try {
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get("/api/admin/dashboard", {
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-        },
-      });
+      const res = await API.get("/admin/dashboard");
 
       setData(res.data);
     } catch (err) {

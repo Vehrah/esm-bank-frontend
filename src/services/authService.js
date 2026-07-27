@@ -4,6 +4,7 @@ const API = axios.create({
   baseURL: "https://esme-bank.onrender.com/api",
 });
 
+// Automatically attach the JWT to every request
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
