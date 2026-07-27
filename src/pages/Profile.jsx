@@ -1,15 +1,113 @@
+import { useState } from "react";
+import toast from "react-hot-toast";
+import API from "../services/authService";
 import { useAuth } from "../context/AuthContext";
 
 function Profile() {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
+
+  const [photo, setPhoto] = useState(null);
+  const [preview, setPreview] = useState(
+    user?.profilePicture || ""
+  );
+  const [uploading, setUploading] = useState(false);
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    setPhoto(file);
+    setPreview(URL.createObjectURL(file));
+  };
+
+  const uploadPhoto = async () => {
+    if (!photo) {
+      return toast.error("Please choose an image.");
+    }
+
+    try {
+      setUploading(true);
+
+      const formData = new FormData();
+      formData.append("photo", photo);
+
+      const res = await API.put(
+        "/account/profile/photo",
+        formData,
+        {
+          headers: {
+            "Content-Type":
+              "multipart/form-data",
+          },
+        }
+      );
+
+      setUser({
+        ...user,
+        profilePicture:
+          res.data.profilePicture,
+      });
+
+      setPreview(res.data.profilePicture);
+
+      toast.success(
+        "Profile picture updated."
+      );
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message ||
+          "Upload failed."
+      );
+    } finally {
+      setUploading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
-      <div className="mx-auto max-w-3xl rounded-3xl bg-white dark:bg-slate-900 p-8 shadow-xl">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 text-slate-900 dark:text-white py-10 px-4">
 
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white">My Profile</h1>
+      <div className="mx-auto max-w-4xl rounded-3xl bg-white dark:bg-slate-900 shadow-xl p-8">
 
-        <p className="mt-2 text-slate-600 dark:text-slate-400">Manage your account information.</p>
+        <div className="flex flex-col items-center">
+
+          <img
+            src={
+              preview ||
+              "https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=" +
+                `${user?.firstName}+${user?.lastName}`
+            }
+            alt="Profile"
+            className="h-40 w-40 rounded-full object-cover border-4 border-yellow-500"
+          />
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handlePhotoChange}
+            className="mt-6"
+          />
+
+          <button
+            onClick={uploadPhoto}
+            disabled={uploading}
+            className="mt-4 rounded-xl bg-yellow-500 px-6 py-3 font-semibold hover:bg-yellow-400"
+          >
+            {uploading
+              ? "Uploading..."
+              : "Upload Photo"}
+          </button>
+
+          <h1 className="mt-8 text-3xl font-bold">
+            {user?.firstName}{" "}
+            {user?.lastName}
+          </h1>
+
+          <p className="text-slate-500 dark:text-slate-400">
+            {user?.email}
+          </p>
+
+        </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
 
@@ -35,7 +133,7 @@ function Profile() {
 
           <ProfileItem
             title="Balance"
-            value={`$${user?.balance?.toLocaleString()}`}
+            value={`₦${user?.balance?.toLocaleString()}`}
           />
 
           <ProfileItem
@@ -47,25 +145,32 @@ function Profile() {
             title="BVN"
             value={
               user?.bvn
-                ? `${user.bvn.slice(0,3)}******${user.bvn.slice(-2)}`
-                : ""
+                ? `${user.bvn.slice(
+                    0,
+                    3
+                  )}******${user.bvn.slice(-2)}`
+                : "-"
             }
           />
 
         </div>
+
       </div>
     </div>
   );
 }
 
-function ProfileItem({ title, value }) {
+function ProfileItem({
+  title,
+  value,
+}) {
   return (
     <div className="rounded-xl bg-gray-100 dark:bg-slate-800 p-5">
-      <p className="text-sm text-slate-600 dark:text-slate-400">
+      <p className="text-sm text-slate-500">
         {title}
       </p>
 
-      <p className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">
+      <p className="mt-2 text-lg font-semibold">
         {value || "-"}
       </p>
     </div>

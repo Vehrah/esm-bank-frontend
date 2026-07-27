@@ -38,4 +38,13 @@ export const getTransactionHistory = () =>
 export const getAccountName = (accountNumber) =>
   API.get(`/transaction/name-enquiry/${accountNumber}`);
 
+export const getProfile = () =>
+  API.get("/account/profile");
+
+export const updateProfile = (data) =>
+  API.put("/account/profile", data);
+
+export const updateProfilePhoto = (data) =>
+  API.put("/account/profile/photo", data);
+
 export default API;
