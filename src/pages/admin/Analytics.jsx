@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/authService";
 import AnalyticsCharts from "../../components/AnalyticsCharts";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSyncAlt } from "react-icons/fa";
@@ -11,15 +11,7 @@ export default function Analytics() {
 
   const fetchAnalytics = async () => {
     try {
-      setLoading(true);
-
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get("/api/admin/analytics", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await API.get("/admin/analytics");
 
       setAnalytics(res.data);
 
