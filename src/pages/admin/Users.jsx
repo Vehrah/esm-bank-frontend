@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/authService";
 import { FaSearch } from "react-icons/fa";
 
 export default function Users() {
@@ -12,13 +12,8 @@ export default function Users() {
 
   const fetchUsers = async () => {
     try {
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get("/api/admin/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await API.get("/admin/users");
+      
 
       setUsers(res.data);
     } catch (err) {
