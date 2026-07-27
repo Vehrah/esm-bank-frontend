@@ -12,11 +12,10 @@ export default function Accounts() {
 
   const fetchUsers = async () => {
     try {
-      const res = await; API.get("/admin/users");
-
+      const res = await API.get("/admin/users");
       setUsers(res.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -28,41 +27,19 @@ export default function Accounts() {
 
   const freezeAccount = async (id) => {
     try {
-      const token = localStorage.getItem("token");
-
-      await axios.patch(
-        `/api/admin/freeze/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
+      await API.patch(`/admin/freeze/${id}`);
       fetchUsers();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   const unfreezeAccount = async (id) => {
     try {
-      const token = localStorage.getItem("token");
-
-      await axios.patch(
-        `/api/admin/unfreeze/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
+      await API.patch(`/admin/unfreeze/${id}`);
       fetchUsers();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -70,8 +47,13 @@ export default function Accounts() {
     <div className="min-h-screen bg-slate-50 p-8 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <div className="mb-8 flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold sm:text-3xl">Account Management</h1>
-          <p className="mt-2 text-slate-500 dark:text-slate-400">Freeze or unfreeze customer accounts.</p>
+          <h1 className="text-2xl font-semibold sm:text-3xl">
+            Account Management
+          </h1>
+
+          <p className="mt-2 text-slate-500 dark:text-slate-400">
+            Freeze or unfreeze customer accounts.
+          </p>
         </div>
 
         <button
@@ -85,42 +67,88 @@ export default function Accounts() {
 
       <div className="w-full overflow-x-auto rounded-[24px] border border-slate-200 bg-white shadow-lg shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/20">
         {loading ? (
-          <div className="p-10 text-center text-slate-500 dark:text-slate-400">Loading accounts...</div>
+          <div className="p-10 text-center text-slate-500 dark:text-slate-400">
+            Loading accounts...
+          </div>
         ) : (
           <table className="min-w-[1100px] w-full">
             <thead className="bg-slate-100 dark:bg-slate-800/90">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700 dark:text-slate-200">Name</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700 dark:text-slate-200">Email</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700 dark:text-slate-200">Account Number</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700 dark:text-slate-200">Balance</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700 dark:text-slate-200">Status</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700 dark:text-slate-200">Action</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold">
+                  Name
+                </th>
+
+                <th className="px-6 py-4 text-left text-sm font-semibold">
+                  Email
+                </th>
+
+                <th className="px-6 py-4 text-left text-sm font-semibold">
+                  Account Number
+                </th>
+
+                <th className="px-6 py-4 text-left text-sm font-semibold">
+                  Balance
+                </th>
+
+                <th className="px-6 py-4 text-left text-sm font-semibold">
+                  Status
+                </th>
+
+                <th className="px-6 py-4 text-left text-sm font-semibold">
+                  Action
+                </th>
               </tr>
             </thead>
 
             <tbody>
               {users.map((user) => (
-                <tr key={user._id} className="border-t border-slate-200/70 transition hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-800/70">
-                  <td className="px-6 py-4 text-sm text-slate-700 dark:text-slate-200">{user.firstName} {user.lastName}</td>
-                  <td className="px-6 py-4 text-sm text-slate-700 dark:text-slate-200">{user.email}</td>
-                  <td className="px-6 py-4 text-sm text-slate-700 dark:text-slate-200">{user.accountNumber}</td>
-                  <td className="px-6 py-4 text-sm font-medium text-slate-700 dark:text-slate-200">${user.balance.toLocaleString()}</td>
+                <tr
+                  key={user._id}
+                  className="border-t border-slate-200 transition hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-800"
+                >
+                  <td className="px-6 py-4">
+                    {user.firstName} {user.lastName}
+                  </td>
+
+                  <td className="px-6 py-4">
+                    {user.email}
+                  </td>
+
+                  <td className="px-6 py-4">
+                    {user.accountNumber}
+                  </td>
+
+                  <td className="px-6 py-4 font-medium">
+                    $
+                    {(user.balance || 0).toLocaleString()}
+                  </td>
+
                   <td className="px-6 py-4">
                     {user.isFrozen ? (
-                      <span className="rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-700 dark:bg-rose-500/15 dark:text-rose-400">Frozen</span>
+                      <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700">
+                        Frozen
+                      </span>
                     ) : (
-                      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400">Active</span>
+                      <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                        Active
+                      </span>
                     )}
                   </td>
+
                   <td className="px-6 py-4">
                     {user.isFrozen ? (
-                      <button onClick={() => unfreezeAccount(user._id)} className="flex items-center gap-2 rounded-2xl bg-emerald-600 px-4 py-2 text-white transition hover:bg-emerald-700">
+                      <button
+                        onClick={() => unfreezeAccount(user._id)}
+                        className="flex items-center gap-2 rounded-xl bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+                      >
                         <FaLockOpen />
                         Unfreeze
                       </button>
                     ) : (
-                      <button onClick={() => freezeAccount(user._id)} className="flex items-center gap-2 rounded-2xl bg-rose-600 px-4 py-2 text-white transition hover:bg-rose-700">
+                      <button
+                        onClick={() => freezeAccount(user._id)}
+                        className="flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2 text-white hover:bg-red-700"
+                      >
                         <FaLock />
                         Freeze
                       </button>
