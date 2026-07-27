@@ -13,13 +13,15 @@ function Profile() {
   const [uploading, setUploading] = useState(false);
 
   const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
+  const file = e.target.files[0];
 
-    if (!file) return;
+  console.log("Selected file:", file);
 
-    setPhoto(file);
-    setPreview(URL.createObjectURL(file));
-  };
+  if (!file) return;
+
+  setPhoto(file);
+  setPreview(URL.createObjectURL(file));
+};
 
   const uploadPhoto = async () => {
     if (!photo) {
@@ -80,6 +82,9 @@ function Profile() {
             alt="Profile"
             className="h-40 w-40 rounded-full object-cover border-4 border-yellow-500"
           />
+          <p className="mb-2 font-bold text-red-500">
+    TEST FILE PICKER
+  </p>
 
           <input
             type="file"
