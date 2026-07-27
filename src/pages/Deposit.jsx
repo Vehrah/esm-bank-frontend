@@ -61,7 +61,7 @@ function Deposit() {
           value={amount}
           min="1"
           max="10000000"
-          step="1"
+          step="0.01"
           onChange={(e) => {
             const value = e.target.value;
 

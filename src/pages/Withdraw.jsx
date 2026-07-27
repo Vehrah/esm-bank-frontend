@@ -13,6 +13,8 @@ function Withdraw() {
   const handleWithdraw = async (e) => {
     e.preventDefault();
 
+    if (withdrawAmount > 10000000)
+
     try {
       setLoading(true);
 
@@ -46,6 +48,9 @@ function Withdraw() {
         <input
           type="number"
           placeholder="Amount"
+          min="1"
+          max="10000000"
+          step="0.01"
           value={amount}
           onChange={(e) =>
             setAmount(e.target.value)
