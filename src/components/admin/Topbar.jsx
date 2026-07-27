@@ -1,11 +1,19 @@
 import { FaBell, FaMoon, FaSearch, FaSun } from "react-icons/fa";
-import { useAdminTheme } from "../../context/AdminThemeContext";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Topbar({
   title = "Dashboard",
   subtitle = "Welcome back, Admin.",
 }) {
-  const { darkMode, setDarkMode } = useAdminTheme();
+  const { theme, toggleTheme } = useTheme();
+
+const darkMode = theme === "dark";
+
+const setDarkMode = (value) => {
+  if ((value && theme !== "dark") || (!value && theme !== "light")) {
+    toggleTheme();
+  }
+};
 
   return (
     <header className="mb-8 flex flex-col gap-5 rounded-[28px] border border-slate-200/70 bg-white/80 p-6 shadow-lg shadow-slate-200/60 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80 dark:shadow-black/20 lg:flex-row lg:items-center lg:justify-between">
@@ -36,7 +44,7 @@ export default function Topbar({
         </button>
 
         <button
-          onClick={() => setDarkMode((value) => !value)}
+          onClick={() => setDarkMode(!darkMode)}
           className="rounded-2xl border border-slate-200 bg-slate-100 p-3 text-slate-700 transition duration-200 hover:-translate-y-0.5 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
           aria-label="Toggle dark mode"
         >
