@@ -12,20 +12,14 @@ function Profile() {
   );
   const [uploading, setUploading] = useState(false);
 
+  
   const handlePhotoChange = (e) => {
   const file = e.target.files[0];
 
-  console.log("FILE:", file);
-
-  if (!file) {
-    toast.error("No file selected.");
-    return;
-  }
+  if (!file) return;
 
   setPhoto(file);
   setPreview(URL.createObjectURL(file));
-
-  toast.success(`Selected: ${file.name}`);
 };
 
   const uploadPhoto = async () => {
@@ -78,45 +72,53 @@ function Profile() {
 
         <div className="flex flex-col items-center">
 
+        <label
+          htmlFor="profile-upload"
+          className="cursor-pointer group"
+        >
           <img
             src={
               preview ||
-              "https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=" +
-                `${user?.firstName}+${user?.lastName}`
+              `https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=${user?.firstName}+${user?.lastName}`
             }
             alt="Profile"
-            className="h-40 w-40 rounded-full object-cover border-4 border-yellow-500"
+            className="h-40 w-40 rounded-full border-4 border-yellow-500 object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-80"
           />
-          <p className="mb-2 font-bold text-red-500">
-    TEST FILE PICKER
-  </p>
+        </label>
 
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handlePhotoChange}
-            className="mt-6"
-          />
+        <input
+          id="profile-upload"
+          type="file"
+          accept="image/*"
+          onChange={handlePhotoChange}
+          className="hidden"
+        />
 
-          <button
-           type="button"
-            onClick={uploadPhoto}
-            disabled={uploading}
-            className="mt-4 rounded-xl bg-yellow-500 px-6 py-3 font-semibold hover:bg-yellow-400"
-          >
-            {uploading
-              ? "Uploading..."
-              : "Upload Photo"}
-          </button>
+        <label
+          htmlFor="profile-upload"
+          className="mt-5 cursor-pointer rounded-xl bg-slate-200 px-5 py-3 font-medium text-slate-800 transition hover:bg-slate-300 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600"
+        >
+          Change Photo
+        </label>
 
-          <h1 className="mt-8 text-3xl font-bold">
-            {user?.firstName}{" "}
-            {user?.lastName}
-          </h1>
+        <button
+          type="button"
+          onClick={uploadPhoto}
+          disabled={uploading}
+          className="mt-4 rounded-xl bg-yellow-500 px-6 py-3 font-semibold text-slate-900 transition hover:bg-yellow-400 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {uploading ? "Uploading..." : "Save Photo"}
+        </button>
 
-          <p className="text-slate-500 dark:text-slate-400">
-            {user?.email}
-          </p>
+        <h1 className="mt-8 text-3xl font-bold">
+          {user?.firstName} {user?.lastName}
+        </h1>
+
+        <p className="text-slate-500 dark:text-slate-400">
+          {user?.email}
+        </p>
+
+  </div>
 
         </div>
 
