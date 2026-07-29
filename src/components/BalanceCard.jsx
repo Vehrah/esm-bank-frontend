@@ -11,13 +11,11 @@ import toast from "react-hot-toast";
 
 function BalanceCard() {
   const { user } = useAuth();
-
   const [showBalance, setShowBalance] = useState(true);
 
   const copyAccount = async () => {
     try {
       await navigator.clipboard.writeText(user?.accountNumber);
-
       toast.success("Account number copied.");
     } catch {
       toast.error("Unable to copy account number.");
@@ -27,17 +25,24 @@ function BalanceCard() {
   return (
     <div className="rounded-3xl bg-white p-8 shadow-xl dark:bg-slate-900">
 
-      <div className="flex items-center justify-between">
+      {/* Header */}
+      <div className="flex items-start justify-between">
+
         <div>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Available Balance
           </p>
 
-          <h1 className="mt-2 text-5xl font-bold text-slate-900 dark:text-white">
+          <h1 className="mt-3 text-5xl font-bold text-slate-900 dark:text-white">
             {showBalance
               ? formatCurrency(user?.balance || 0)
               : "••••••••"}
           </h1>
+
+          <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700 dark:bg-green-500/10 dark:text-green-400">
+            <FaCheckCircle />
+            Account Active
+          </div>
         </div>
 
         <button
@@ -46,17 +51,22 @@ function BalanceCard() {
         >
           {showBalance ? <FaEyeSlash /> : <FaEye />}
         </button>
+
       </div>
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2">
+      {/* Divider */}
+      <div className="my-8 border-t border-slate-200 dark:border-slate-700" />
 
-        <div className="rounded-2xl bg-slate-100 p-5 dark:bg-slate-800">
-          <p className="text-sm text-slate-500">
+      {/* Account Information */}
+      <div className="grid gap-6 sm:grid-cols-3">
+
+        <div>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             Account Number
           </p>
 
-          <div className="mt-2 flex items-center justify-between">
-            <span className="font-semibold">
+          <div className="mt-2 flex items-center gap-3">
+            <span className="font-semibold text-lg">
               {user?.accountNumber}
             </span>
 
@@ -69,35 +79,24 @@ function BalanceCard() {
           </div>
         </div>
 
-        <div className="rounded-2xl bg-slate-100 p-5 dark:bg-slate-800">
-          <p className="text-sm text-slate-500">
+        <div>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             Account Tier
           </p>
 
-          <p className="mt-2 font-semibold">
+          <p className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">
             {user?.accountTier || "Basic"}
           </p>
         </div>
 
-        <div className="rounded-2xl bg-slate-100 p-5 dark:bg-slate-800">
-          <p className="text-sm text-slate-500">
+        <div>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             Currency
           </p>
 
-          <p className="mt-2 font-semibold">
+          <p className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">
             {user?.currency || "USD"}
           </p>
-        </div>
-
-        <div className="rounded-2xl bg-slate-100 p-5 dark:bg-slate-800">
-          <p className="text-sm text-slate-500">
-            Account Status
-          </p>
-
-          <div className="mt-2 flex items-center gap-2 font-semibold text-green-600">
-            <FaCheckCircle />
-            Active
-          </div>
         </div>
 
       </div>

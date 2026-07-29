@@ -7,23 +7,16 @@ import LogoutButton from "../components/LogoutButton";
 
 function Dashboard() {
   return (
-    <div className="min-h-screen bg-gray-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
-      <div className="mx-auto max-w-7xl space-y-8">
-
-        <ProfileShortcut />
-
-        <WelcomeCard />
-
-        <BalanceCard />
-
-        <QuickActions />
-
-        <RecentTransactions />
-
-        <LogoutButton />
-
-      </div>
-    </div>
+    <div className="min-h-screen bg-gray-50 px-6 py-6 text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
+  <div className="mx-auto max-w-7xl space-y-8">
+    <ProfileShortcut />
+    <WelcomeCard />
+    <BalanceCard />
+    <QuickActions />
+    <RecentTransactions />
+    <LogoutButton />
+  </div>
+</div>
   );
 }
 

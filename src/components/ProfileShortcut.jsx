@@ -10,10 +10,14 @@ function ProfileShortcut() {
         to="/profile"
         className="flex items-center gap-3 rounded-full bg-white dark:bg-slate-900 px-4 py-2 shadow-lg transition hover:bg-gray-100 dark:hover:bg-slate-800"
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-yellow-500 text-lg font-bold text-slate-900">
-          {user?.firstName?.charAt(0)}
-          {user?.lastName?.charAt(0)}
-        </div>
+        <img
+          src={
+            user?.profilePicture ||
+            `https://ui-avatars.com/api/?name=${user?.firstName}+${user?.lastName}`
+          }
+          alt="Profile"
+          className="h-12 w-12 rounded-full object-cover border-2 border-yellow-500"
+        />
 
         <div className="hidden md:block">
           <p className="font-semibold text-slate-900 dark:text-white">
