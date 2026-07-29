@@ -5,50 +5,53 @@ import {
   FaWallet,
   FaHistory,
   FaCog,
+  FaUserCircle,
 } from "react-icons/fa";
 
 function QuickActions() {
-  const actions = [
-    {
-      title: "Transfer",
-      link: "/transfer",
-      icon: <FaExchangeAlt />,
-    },
-    {
-      title: "Deposit",
-      link: "/deposit",
-      icon: <FaMoneyBillWave />,
-    },
-    {
-      title: "Withdraw",
-      link: "/withdraw",
-      icon: <FaWallet />,
-    },
-    {
-      title: "History",
-      link: "/transactions",
-      icon: <FaHistory />,
-    },
-    {
-      title: "Settings",
-      link: "/settings",
-      icon: <FaCog />,
-    },
-  ];
+ const actions = [
+  {
+    title: "Transfer",
+    link: "/transfer",
+    icon: <FaExchangeAlt />,
+  },
+  {
+    title: "Deposit",
+    link: "/deposit",
+    icon: <FaMoneyBillWave />,
+  },
+  {
+    title: "Withdraw",
+    link: "/withdraw",
+    icon: <FaWallet />,
+  },
+  {
+    title: "History",
+    link: "/transactions",
+    icon: <FaHistory />,
+  },
+  {
+    title: "Profile",
+    link: "/profile",
+    icon: <FaUserCircle />,
+  },
+  {
+    title: "Settings",
+    link: "/settings",
+    icon: <FaCog />,
+  },
+];
 
   return (
     <section>
       <div className="mb-5 flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-          Quick Actions
-        </h2>
 
         <p className="text-sm text-slate-500 dark:text-slate-400">
           Access your banking tools instantly
         </p>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {actions.map((action) => (
           <Link
             key={action.title}
