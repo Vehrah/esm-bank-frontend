@@ -27,6 +27,7 @@ import AdminUsers from "./pages/admin/Users";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import Logs from "./pages/admin/Logs";
+import Notifications from "./pages/Notifications";
 
 import NotFound from "./pages/NotFound";
 
@@ -173,6 +174,11 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+              <Route
+        path="/notifications"
+        element={<Notifications />}
+      />
 
         {/* 404 */}
         <Route path="*" element={<NotFound />} />

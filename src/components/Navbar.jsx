@@ -3,7 +3,7 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 
 function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-slate-950 border-b border-gray-200 dark:border-yellow-600/20">
+    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white dark:border-yellow-600/20 dark:bg-slate-950">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
 
         {/* Logo */}
@@ -14,7 +14,7 @@ function Navbar() {
 
           <div>
             <h1 className="text-xl font-bold tracking-wide text-slate-900 dark:text-white">
-              Esm Bank
+              ESM Bank
             </h1>
 
             <p className="text-xs text-yellow-500">
@@ -25,19 +25,31 @@ function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden items-center gap-8 md:flex">
-          <Link to="/" className="text-slate-700 dark:text-slate-300 transition hover:text-yellow-400">
+          <Link
+            to="/"
+            className="text-slate-700 transition hover:text-yellow-400 dark:text-slate-300"
+          >
             Home
           </Link>
 
-          <a href="#features" className="text-slate-700 dark:text-slate-300 transition hover:text-yellow-400">
+          <a
+            href="#features"
+            className="text-slate-700 transition hover:text-yellow-400 dark:text-slate-300"
+          >
             Features
           </a>
 
-          <a href="#services" className="text-slate-700 dark:text-slate-300 transition hover:text-yellow-400">
+          <a
+            href="#services"
+            className="text-slate-700 transition hover:text-yellow-400 dark:text-slate-300"
+          >
             Services
           </a>
 
-          <Link to="/login" className="text-slate-700 dark:text-slate-300 transition hover:text-yellow-400">
+          <Link
+            to="/login"
+            className="text-slate-700 transition hover:text-yellow-400 dark:text-slate-300"
+          >
             Login
           </Link>
 
@@ -49,10 +61,11 @@ function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Menu Icon */}
+        {/* Mobile Menu */}
         <button className="text-3xl text-slate-900 dark:text-white md:hidden">
           <HiOutlineMenuAlt3 />
         </button>
+
       </div>
     </nav>
   );
