@@ -28,6 +28,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import Logs from "./pages/admin/Logs";
 import Notifications from "./pages/Notifications";
+import Cards from "./pages/Cards";
 
 import NotFound from "./pages/NotFound";
 
@@ -178,6 +179,10 @@ function App() {
               <Route
         path="/notifications"
         element={<Notifications />}
+      />
+      <Route
+          path="/cards"
+          element={<Cards />}
       />
 
         {/* 404 */}

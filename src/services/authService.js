@@ -60,4 +60,9 @@ export const markAllNotificationsAsRead = () =>
 export const deleteNotification = (id) =>
   API.delete(`/notifications/${id}`);
 
+export const requestVirtualCard = () =>
+  API.post("/cards/request");
+
+export const getVirtualCard = () =>
+  API.get("/cards");
 export default API;

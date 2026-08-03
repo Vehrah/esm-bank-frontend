@@ -6,6 +6,7 @@ import {
   FaHistory,
   FaCog,
   FaUserCircle,
+  FaCreditCard,
 } from "react-icons/fa";
 
 function QuickActions() {
@@ -40,6 +41,11 @@ function QuickActions() {
     link: "/settings",
     icon: <FaCog />,
   },
+  {
+  title: "Cards",
+  link: "/cards",
+  icon: <FaCreditCard />,
+},
 ];
 
   return (
