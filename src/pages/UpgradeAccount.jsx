@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { FaCheck, FaLock, FaArrowRight } from "react-icons/fa";
 import toast from "react-hot-toast";
 
+import { useAuth } from "../context/AuthContext";
+
 import {
   getProfile,
   upgradeAccountTier,
 } from "../services/authService";
 
 function UpgradeAccount() {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useAuth();
+
   const [loading, setLoading] = useState(true);
   const [upgrading, setUpgrading] = useState(false);
 
@@ -19,6 +22,8 @@ function UpgradeAccount() {
   const loadProfile = async () => {
     try {
       const res = await getProfile();
+
+      // Update global AuthContext user
       setUser(res.data);
     } catch (err) {
       console.error(err);
@@ -35,7 +40,9 @@ function UpgradeAccount() {
   const handleUpgrade = async (tier, price) => {
     if (!user) return;
 
-    if (Number(user.balance) < price) {
+    const balance = Number(user.balance || 0);
+
+    if (balance < price) {
       toast.error(
         `You need $${price} to upgrade to ${tier}.`
       );
@@ -44,11 +51,9 @@ function UpgradeAccount() {
 
     const confirmed = window.confirm(
       `Upgrade to ${tier} for $${price}?\n\n` +
-        `Available balance: $${Number(
-          user.balance
-        ).toLocaleString()}\n` +
-        `Balance after upgrade: $${Number(
-          user.balance - price
+        `Available balance: $${balance.toLocaleString()}\n` +
+        `Balance after upgrade: $${(
+          balance - price
         ).toLocaleString()}`
     );
 
@@ -61,6 +66,13 @@ function UpgradeAccount() {
         tier,
       });
 
+      /*
+       * Update the GLOBAL authenticated user.
+       *
+       * This is the important part.
+       * WelcomeCard, Dashboard, Profile, etc.
+       * will now immediately see the new tier.
+       */
       setUser((prev) => ({
         ...prev,
         accountTier: res.data.accountTier,
@@ -71,6 +83,8 @@ function UpgradeAccount() {
         `Account upgraded to ${tier} successfully.`
       );
     } catch (err) {
+      console.error("Upgrade error:", err);
+
       toast.error(
         err.response?.data?.message ||
           "Unable to upgrade account."
@@ -82,7 +96,7 @@ function UpgradeAccount() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[400px] items-center justify-center">
+      <div className="flex min-h-[300px] items-center justify-center">
         <p className="text-slate-500">
           Loading account...
         </p>
@@ -141,7 +155,6 @@ function UpgradeAccount() {
 
   return (
     <div className="mx-auto max-w-6xl">
-
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
@@ -155,9 +168,7 @@ function UpgradeAccount() {
 
       {/* Current Account */}
       <div className="mt-8 rounded-3xl bg-slate-900 p-6 text-white shadow-xl">
-
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-
           <div>
             <p className="text-sm text-slate-400">
               Current account tier
@@ -177,13 +188,11 @@ function UpgradeAccount() {
               ${balance.toLocaleString()}
             </p>
           </div>
-
         </div>
       </div>
 
       {/* Tier Cards */}
       <div className="mt-8 grid gap-6 md:grid-cols-3">
-
         {tiers.map((tier) => {
           const isCurrent =
             tier.name === currentTier;
@@ -205,10 +214,8 @@ function UpgradeAccount() {
                   : "bg-white dark:bg-slate-900"
               }`}
             >
-
               {/* Tier name */}
               <div className="flex items-center justify-between">
-
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                   {tier.name}
                 </h2>
@@ -218,12 +225,10 @@ function UpgradeAccount() {
                     CURRENT
                   </span>
                 )}
-
               </div>
 
               {/* Price */}
               <div className="mt-6">
-
                 {tier.price === 0 ? (
                   <p className="text-3xl font-bold text-slate-900 dark:text-white">
                     Free
@@ -239,16 +244,15 @@ function UpgradeAccount() {
                     upgrade fee
                   </p>
                 )}
-
               </div>
 
+              {/* Description */}
               <p className="mt-5 text-sm leading-6 text-slate-500 dark:text-slate-400">
                 {tier.description}
               </p>
 
               {/* Features */}
               <div className="mt-6 space-y-3">
-
                 {tier.features.map((feature) => (
                   <div
                     key={feature}
@@ -263,12 +267,10 @@ function UpgradeAccount() {
                     </span>
                   </div>
                 ))}
-
               </div>
 
               {/* Button */}
               <div className="mt-8">
-
                 {isCurrent && (
                   <button
                     disabled
@@ -308,28 +310,23 @@ function UpgradeAccount() {
                     Locked
                   </button>
                 )}
-
               </div>
-
             </div>
           );
         })}
-
       </div>
 
       {/* Notice */}
       <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
-
         <p className="text-sm text-slate-500 dark:text-slate-400">
           <span className="font-semibold text-slate-700 dark:text-slate-200">
             Upgrade policy:
           </span>{" "}
-          You can only upgrade one tier at a time. Your upgrade fee
-          is deducted directly from your available account balance.
+          You can only upgrade one tier at a time. Your upgrade
+          fee is deducted directly from your available account
+          balance.
         </p>
-
       </div>
-
     </div>
   );
 }
