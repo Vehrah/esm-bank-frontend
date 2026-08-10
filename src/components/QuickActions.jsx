@@ -7,57 +7,66 @@ import {
   FaCog,
   FaUserCircle,
   FaCreditCard,
+  FaArrowUp,
 } from "react-icons/fa";
 
 function QuickActions() {
- const actions = [
-  {
-    title: "Transfer",
-    link: "/transfer",
-    icon: <FaExchangeAlt />,
-  },
-  {
-    title: "Deposit",
-    link: "/deposit",
-    icon: <FaMoneyBillWave />,
-  },
-  {
-    title: "Withdraw",
-    link: "/withdraw",
-    icon: <FaWallet />,
-  },
-  {
-    title: "History",
-    link: "/transactions",
-    icon: <FaHistory />,
-  },
-  {
-    title: "Profile",
-    link: "/profile",
-    icon: <FaUserCircle />,
-  },
-  {
-    title: "Settings",
-    link: "/settings",
-    icon: <FaCog />,
-  },
-  {
-  title: "Cards",
-  link: "/cards",
-  icon: <FaCreditCard />,
-},
-];
+  const actions = [
+    {
+      title: "Transfer",
+      link: "/transfer",
+      icon: <FaExchangeAlt />,
+    },
+    {
+      title: "Deposit",
+      link: "/deposit",
+      icon: <FaMoneyBillWave />,
+    },
+    {
+      title: "Withdraw",
+      link: "/withdraw",
+      icon: <FaWallet />,
+    },
+    {
+      title: "History",
+      link: "/transactions",
+      icon: <FaHistory />,
+    },
+    {
+      title: "Profile",
+      link: "/profile",
+      icon: <FaUserCircle />,
+    },
+    {
+      title: "Settings",
+      link: "/settings",
+      icon: <FaCog />,
+    },
+    {
+      title: "Card",
+      link: "/cards",
+      icon: <FaCreditCard />,
+    },
+    {
+      title: "Upgrade",
+      link: "/upgrade-account",
+      icon: <FaArrowUp />,
+    },
+  ];
 
   return (
     <section>
-      <div className="mb-5 flex items-center justify-between">
+      <div>
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+          Quick Actions
+        </h2>
 
         <p className="text-sm text-slate-500 dark:text-slate-400">
           Access your banking tools instantly
         </p>
       </div>
 
-      <div className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+      <div className="mt-5 grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-6">
         {actions.map((action) => (
           <Link
             key={action.title}

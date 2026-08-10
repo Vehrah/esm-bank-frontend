@@ -29,6 +29,7 @@ import AdminRoute from "./components/AdminRoute";
 import Logs from "./pages/admin/Logs";
 import Notifications from "./pages/Notifications";
 import Cards from "./pages/Cards";
+import UpgradeAccount from "./pages/UpgradeAccount";
 
 import NotFound from "./pages/NotFound";
 
@@ -183,6 +184,10 @@ function App() {
       <Route
           path="/cards"
           element={<Cards />}
+      />
+      <Route
+        path="/upgrade-account"
+        element={<UpgradeAccount />}
       />
 
         {/* 404 */}

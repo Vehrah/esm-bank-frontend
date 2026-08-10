@@ -66,3 +66,7 @@ export const requestVirtualCard = () =>
 export const getVirtualCard = () =>
   API.get("/cards");
 export default API;
+export const toggleFreezeCard = (cardId) =>
+  API.put(`/cards/${cardId}/freeze`);
+export const upgradeAccountTier = (data) =>
+  API.put("/account/upgrade-tier", data);

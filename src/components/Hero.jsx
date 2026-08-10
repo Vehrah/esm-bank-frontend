@@ -3,9 +3,9 @@ import { FaArrowRight } from "react-icons/fa";
 
 function Hero() {
   return (
-    <section className="bg-gray-50 dark:bg-slate-950">
-      <div className="mx-auto flex min-h-[90vh] max-w-7xl flex-col items-center justify-between gap-16 px-6 py-16 lg:flex-row">
-
+    <section className="bg-slate-950">
+      <div className="mx-auto grid max-w-7xl items-center px-6 py-20 lg:grid-cols-1">
+        
         {/* Left Side */}
         <div className="max-w-2xl">
 
@@ -42,70 +42,6 @@ function Hero() {
               Login
               <FaArrowRight />
             </Link>
-
-          </div>
-
-        </div>
-
-        {/* Right Side */}
-
-          <div className="relative">
-
-          <div className="w-[380px] rounded-3xl border border-yellow-500/20 bg-white dark:bg-slate-900 p-8 shadow-2xl">
-
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <h2 className="text-slate-900 dark:text-white font-bold">
-                Esm Bank
-              </h2>
-
-              <span className="rounded-full bg-yellow-500/20 px-3 py-1 text-xs text-yellow-400">
-                PREMIUM
-              </span>
-            </div>
-
-            <p className="mt-10 text-slate-900 dark:text-slate-400">
-              Available Balance
-            </p>
-
-            <h1 className="mt-2 text-5xl font-bold text-yellow-500">
-              $245,000.00
-            </h1>
-
-            <div className="mt-10 rounded-xl bg-gray-100 dark:bg-slate-800 p-5">
-
-              <p className="text-sm text-slate-900 dark:text-slate-400">
-                Card Number
-              </p>
-
-              <h2 className="mt-2 text-xl tracking-[6px] text-slate-900 dark:text-white">
-                •••• •••• •••• 4829
-              </h2>
-
-            </div>
-
-            <div className="mt-6 flex justify-between">
-
-              <div>
-                <p className="text-sm text-slate-900 dark:text-slate-400">
-                  Status
-                </p>
-
-                <p className="text-green-400">
-                  Active
-                </p>
-              </div>
-
-              <div>
-                <p className="text-sm text-slate-400">
-                  Currency
-                </p>
-
-                <p className="text-slate-900 dark:text-white">
-                  USD
-                </p>
-              </div>
-
-            </div>
 
           </div>
 
