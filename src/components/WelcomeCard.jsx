@@ -126,7 +126,7 @@ function WelcomeCard() {
       {/* Left Side */}
       <div>
         <p className="text-sm text-slate-500 dark:text-slate-400">
-          Good Morning 👋
+          Hello👋
         </p>
 
         <h1 className="mt-1 text-3xl font-bold text-slate-900 dark:text-white">
