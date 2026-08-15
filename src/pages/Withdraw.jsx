@@ -11,35 +11,46 @@ function Withdraw() {
   const [loading, setLoading] = useState(false);
 
   const handleWithdraw = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (withdrawAmount > 10000000)
+  const withdrawAmount = Number(amount);
 
-    try {
-      setLoading(true);
+  // Validate amount
+  if (!amount || withdrawAmount <= 0) {
+    toast.error("Please enter a valid amount.");
+    return;
+  }
 
-      const res = await API.post("/transaction/withdraw", {
-        amount,
-      });
+  // Maximum withdrawal per transaction
+  if (withdrawAmount > 10000000) {
+    toast.error("Maximum withdrawal is $10,000,000.");
+    return;
+  }
 
-      setUser({
-          ...user,
-          balance: res.data.balance,
-        });
+  try {
+    setLoading(true);
 
-        toast.success(res.data.message);
+    const res = await API.post("/transaction/withdraw", {
+      amount: withdrawAmount,
+    });
 
-        navigate("/dashboard");
-    } catch (err) {
-      toast.error(
-        err.response?.data?.message ||
-          "Withdrawal failed"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+    setUser({
+      ...user,
+      balance: res.data.balance,
+    });
 
+    toast.success(res.data.message);
+
+    navigate("/dashboard");
+  } catch (err) {
+    toast.error(
+      err.response?.data?.message ||
+        "Withdrawal failed"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
   return (
    <div className="min-h-screen bg-gray-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
       <form onSubmit={handleWithdraw} className="w-full max-w-md rounded-3xl bg-white dark:bg-slate-900 p-8">
